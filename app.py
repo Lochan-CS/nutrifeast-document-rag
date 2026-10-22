@@ -1,11 +1,11 @@
 import os, re, csv, io, json, math, uuid, hashlib, logging, tempfile, shutil
 from pathlib import Path
 from collections import Counter
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.responses import FileResponse
 from starlette.concurrency import run_in_threadpool
 from pydantic import BaseModel
-from pypdf import PdfReader
 from docx import Document
 import requests
 
@@ -38,7 +38,6 @@ def init_storage() -> Path:
 
 STORE = init_storage()
 INDEX = STORE / "index.json"
-from contextlib import asynccontextmanager
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -98,17 +97,46 @@ def save(db):
             logger.exception("Unable to save document index %s", INDEX)
             raise HTTPException(500, f"Unable to save document library index ({e2}). Check folder permissions.") from e2
 
-def extract(name, data):
-    suffix = Path(name).suffix.lower()
+def extract_pdf(name: str, data: bytes) -> list[dict]:
     pages = []
-    
-    if suffix == ".pdf":
-        try:
-            d = PdfReader(io.BytesIO(data), strict=False)
-        except Exception as e:
-            logger.exception("Unable to parse PDF %s", name)
-            raise HTTPException(400, f'Unable to read PDF "{name}". The file may be corrupt or not a valid PDF.') from e
+    fitz_err = None
+    pypdf_err = None
 
+    # Primary Engine: PyMuPDF (fitz) - Fast, handles AES/complex PDF structures natively
+    try:
+        try:
+            import pymupdf as fitz
+        except ImportError:
+            import fitz
+        doc = fitz.open(stream=data, filetype="pdf")
+        if doc.is_encrypted:
+            unlocked = False
+            for empty_pw in ("", b""):
+                try:
+                    if doc.authenticate(empty_pw) > 0:
+                        unlocked = True
+                        break
+                except Exception:
+                    pass
+            if not unlocked and doc.is_encrypted:
+                doc.close()
+                raise HTTPException(400, f'PDF "{name}" is password-protected. Please upload an unencrypted PDF.')
+
+        for i, page in enumerate(doc):
+            t = (page.get_text() or "").strip()
+            pages.append({"page": i + 1, "text": t})
+        doc.close()
+        return pages
+    except HTTPException:
+        raise
+    except Exception as e:
+        fitz_err = e
+        logger.warning("PyMuPDF parser encountered error on %s: %s; trying pypdf fallback", name, e)
+
+    # Fallback Engine: pypdf (with cryptography AES support)
+    try:
+        from pypdf import PdfReader
+        d = PdfReader(io.BytesIO(data), strict=False)
         if getattr(d, "is_encrypted", False):
             unlocked = False
             for empty_pw in ("", b""):
@@ -122,26 +150,34 @@ def extract(name, data):
             if not unlocked:
                 raise HTTPException(400, f'PDF "{name}" is password-protected. Please upload an unencrypted PDF.')
 
-        try:
-            num_pages = len(d.pages)
-        except Exception as e:
-            logger.exception("Unable to inspect pages of %s", name)
-            raise HTTPException(400, f'Unable to inspect pages of PDF "{name}". The document structure may be damaged.') from e
-
+        num_pages = len(d.pages)
         for i in range(num_pages):
             t = ""
             try:
                 p = d.pages[i]
                 t = (p.extract_text() or "").strip()
             except Exception as e:
-                logger.warning("Page %s text extraction failed in %s: %s", i + 1, name, e)
+                logger.warning("pypdf page %s text extraction warning on %s: %s", i + 1, name, e)
             pages.append({"page": i + 1, "text": t})
+        return pages
+    except HTTPException:
+        raise
+    except Exception as e:
+        pypdf_err = e
+        logger.exception("Both PyMuPDF and pypdf failed on %s (fitz: %s, pypdf: %s)", name, fitz_err, pypdf_err)
+        raise HTTPException(400, f'Unable to read PDF "{name}". The document may be corrupted or use an unsupported PDF structure.') from e
+
+def extract(name, data):
+    suffix = Path(name).suffix.lower()
+    
+    if suffix == ".pdf":
+        return extract_pdf(name, data)
             
     elif suffix == ".docx":
         try:
             d = Document(io.BytesIO(data))
             t = "\n".join([p.text for p in d.paragraphs] + [" | ".join(c.text for c in r.cells) for table in d.tables for r in table.rows])
-            pages = [{"page": None, "text": t}]
+            return [{"page": None, "text": t}]
         except Exception as e:
             logger.exception("Unable to read DOCX %s", name)
             raise HTTPException(400, f'Unable to read DOCX "{name}". Ensure the document is a valid Microsoft Word file.') from e
@@ -150,7 +186,7 @@ def extract(name, data):
         try:
             s = decode_text(data)
             rows = list(csv.reader(io.StringIO(s)))
-            pages = [{"page": None, "text": "\n".join(" | ".join(r) for r in rows)}]
+            return [{"page": None, "text": "\n".join(" | ".join(r) for r in rows)}]
         except Exception as e:
             logger.exception("Unable to read CSV %s", name)
             raise HTTPException(400, f'Unable to parse CSV "{name}". Ensure it is valid text.') from e
@@ -158,12 +194,10 @@ def extract(name, data):
     else:  # .txt
         try:
             s = decode_text(data)
-            pages = [{"page": None, "text": s}]
+            return [{"page": None, "text": s}]
         except Exception as e:
             logger.exception("Unable to read TXT %s", name)
             raise HTTPException(400, f'Unable to parse text file "{name}".') from e
-
-    return pages
 
 def chunks(pages):
     out = []
@@ -188,8 +222,6 @@ def chunks(pages):
                 break
             start = max(start + 1, end - 160)
     return out
-
-# Storage initialized via lifespan context manager
 
 @app.get("/")
 def home():
