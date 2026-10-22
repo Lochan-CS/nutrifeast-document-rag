@@ -1,0 +1,5 @@
+NutriFeast Example Nutrition Note
+This is a sample document for testing the document-based retrieval system. All values below are illustrative and are NOT medical guidance or a verified food database.
+A meal-planning workshop suggests including a variety of vegetables, whole grains, and protein-containing foods. Participants are encouraged to read product labels and consider their personal dietary needs.
+The workshop takes place on Friday at 2 PM in Room 204. The coordinator is Dr. Anika Rao. Participants should bring a notebook.
+The workshop does not discuss vitamin D supplementation, diabetes treatment, or specific protein targets.
