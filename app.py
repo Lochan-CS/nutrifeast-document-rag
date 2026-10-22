@@ -45,7 +45,20 @@ def extract(name,data):
  if suffix=='.pdf':
   try:
    d=PdfReader(io.BytesIO(data),strict=False)
-   if d.is_encrypted:raise HTTPException(400,'This PDF is password-protected. Upload an unencrypted PDF.')
+   if d.is_encrypted:
+    try:
+     status = d.decrypt('')
+     if status == 0:
+      try:
+       status = d.decrypt(b'')
+      except Exception:
+       pass
+     if status == 0:
+      raise HTTPException(400,'This PDF is password-protected. Upload an unencrypted PDF.')
+    except HTTPException:
+     raise
+    except Exception:
+     raise HTTPException(400,'This PDF is password-protected. Upload an unencrypted PDF.')
    for i,p in enumerate(d.pages):
     try:t=(p.extract_text() or '').strip()
     except Exception as e:
@@ -169,3 +182,8 @@ def ask(q:Query):
    return {'answer':'Gemini generation failed. Check API key, model, quota or network. Retrieved excerpts are shown below.','citations':citations,'mode':'generation_error'}
  # Without LLM, return retrieved evidence rather than pretending to generate an answer.
  return {'answer':'Relevant passages found in your document. Configure GEMINI_API_KEY to generate a synthesized answer.\n\n'+ '\n\n'.join(f"[Source {i+1}] {c['text'][:500]}" for i,c in enumerate(top[:2])), 'citations':citations,'mode':'extractive'}
+
+if __name__ == '__main__':
+ import uvicorn
+ port = int(os.environ.get('PORT', 8765))
+ uvicorn.run('app:app', host='0.0.0.0', port=port)

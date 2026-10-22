@@ -1,13 +1,29 @@
+# Virtual environments
 .venv/
+venv/
+ENV/
+env/
+
+# Uploads & local document storage
 uploads/
+uploads/*
+!uploads/.gitkeep
+
+# Python cache & compiled files
 __pycache__/
+pycache/
 *.py[cod]
+*.class
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+
+# Environment variables & secrets
 .env
 .env.*
 !.env.example
+*api_key*
+*apikey*
 secrets/
 .secrets/
 credentials*.json
@@ -16,9 +32,18 @@ service-account*.json
 *.key
 *.p12
 *.pfx
+
+# Generated indexes & temporary files
+index.json
+*index.json
+*.index
+*.sqlite3
+*.db
 *.log
 *.tmp
 *.temp
 *.bak
+
+# OS generated files
 Thumbs.db
 .DS_Store

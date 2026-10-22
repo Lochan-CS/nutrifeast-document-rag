@@ -1,32 +1,61 @@
 # NutriFeast Insight — Upload & Ask Document RAG
 
-## Windows quick start
-1. Extract the ZIP (do not run from inside the ZIP).
-2. Double-click `start.bat` (requires Python 3.11 and internet for first-time package installation).
-3. Open http://127.0.0.1:8765.
-4. Upload PDF, DOCX, TXT, or CSV; select document; ask a question.
+Document intelligence and grounded passage retrieval workspace for PDFs, DOCX, TXT, and CSV documents with verifiable source citations and optional Google Gemini answer synthesis.
+
+## Quick Start (Windows)
+1. Double-click `start.bat` (requires Python 3.11).
+2. The script automatically sets up a `.venv`, installs requirements, and launches the app at `http://127.0.0.1:8765`.
+3. Drag and drop or browse for documents (PDF, DOCX, TXT, CSV up to 12 MB).
+4. Select documents in the sidebar and ask questions in natural language.
 
 ## Deploy on Render
-This repository includes a `render.yaml` Blueprint for Python 3.11. Create a Render Web Service from the repository, then optionally set `GEMINI_API_KEY` in the service environment to enable Gemini generation. Uploaded files and the document index are stored under `uploads/`; Render's default filesystem is ephemeral, so configure a persistent disk mounted at the project's `uploads` directory if uploads must survive service restarts or redeploys.
+This repository includes a preconfigured `render.yaml` Blueprint for Python 3.11.
 
-## Enable Gemini generation (optional, but required for LLM-based RAG)
-Open PowerShell in the extracted folder and run:
+### Option A: Deploy via Blueprint (`render.yaml`)
+1. In your [Render Dashboard](https://dashboard.render.com/), click **New** → **Blueprint**.
+2. Connect your GitHub repository: `https://github.com/Lochan-CS/nutrifeast-document-rag`.
+3. Render reads `render.yaml` automatically and configures the web service.
 
+### Option B: Deploy as a Standard Web Service
+1. In the Render Dashboard, click **New** → **Web Service**.
+2. Connect `https://github.com/Lochan-CS/nutrifeast-document-rag`.
+3. Configure the following settings:
+   - **Environment:** `Python 3`
+   - **Build Command:** `pip install -r requirements.txt`
+   - **Start Command:** `uvicorn app:app --host 0.0.0.0 --port $PORT`
+4. In **Environment Variables**, set:
+   - `PYTHON_VERSION`: `3.11.9`
+   - `GEMINI_API_KEY`: *(Optional)* Your Google Gemini API key if LLM answer synthesis is desired.
+5. *(Optional)* Render filesystem is ephemeral on free tiers. If you want uploaded files and indexes to persist across service restarts, add a persistent disk mounted at `uploads`.
+
+## Enable Gemini Generation (Optional)
+The system works out-of-the-box in **Evidence-First Retrieval Mode** without an API key, returning exact passage citations with scores and page numbers.
+
+To enable AI synthesis with Google Gemini:
 ```powershell
-$env:GEMINI_API_KEY="YOUR_KEY"
+$env:GEMINI_API_KEY="YOUR_GEMINI_API_KEY"
 .\start.bat
 ```
+On Render, set `GEMINI_API_KEY` in the service Environment Variables. You can also specify `GEMINI_MODEL` (defaults to `gemini-2.5-flash`).
 
-With no Gemini key, the app retrieves and cites relevant passages, but does not claim to generate an LLM answer. Uses Google Gemini API over the internet when configured. Change model via `GEMINI_MODEL` if necessary.
+## Architecture & Features
+- **Document Ingestion:** Multi-format parser for PDF (`pypdf`), DOCX (`python-docx`), CSV (`csv.reader`), and TXT.
+- **Smart Chunking:** Windowed passages with overlapping token boundaries preserving context.
+- **Lexical Retrieval:** BM25 scoring algorithm for rapid, deterministic passage ranking across uploaded documents.
+- **Grounded Refusal:** When retrieved passages lack sufficient evidence, the system refuses to speculate and requests clarification or flags insufficient data.
+- **Source Citations:** Every retrieved passage is linked to its source document and exact page number.
 
-## Architecture
-Upload -> text extraction (pypdf / python-docx / UTF-8 CSV/TXT) -> overlapping chunks -> BM25 ranked passage retrieval -> Gemini answer restricted to passages -> citations.
+## Contributors
+- **Sahana310** — [https://github.com/Sahana310](https://github.com/Sahana310)
+- **Lochan-CS** — [https://github.com/Lochan-CS](https://github.com/Lochan-CS)
 
-**Note:** This compact ready-to-run version uses BM25 lexical retrieval, not FAISS semantic vector retrieval. It is a genuine document-grounded retrieval + optional generation pipeline, but does not claim to implement embeddings. It intentionally does not use the pre-existing USDA dataset.
+> **Collaborator Access Note:**
+> The repository is owned by **Lochan-CS**. To grant full write/push access to **Sahana310**, invite them as a collaborator via GitHub:
+> 1. Go to repository **Settings** → **Collaborators** (`https://github.com/Lochan-CS/nutrifeast-document-rag/settings/access`).
+> 2. Click **Add people** and search for `Sahana310`.
+> 3. Sahana310 will receive an email/invitation notification to accept collaborator access.
 
-## Security and limitations
-- Files and extracted text are stored locally under `uploads/` (not suitable for shared multiuser hosting).
-- 12 MB upload limit. Scanned PDFs without selectable text are not supported.
-- No user accounts; do not deploy publicly without authentication and per-user storage isolation.
-- Retrieved snippets are evidence, not proof of factual correctness. Test citations manually.
-- Python 3.11 is recommended; port 8765 avoids conflict with your existing project on port 8000.
+## Security & Privacy
+- Files and extracted passages are stored locally in the isolated `uploads/` directory.
+- Protected by `.gitignore` so no uploads, indexes, API keys, or temporary files are committed to version control.
+- Documents are never used to train public models.
