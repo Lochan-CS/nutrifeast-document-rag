@@ -1,185 +1,1148 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NutriFeast | Document Intelligence</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
-:root{color-scheme:dark;--bg:#070d16;--card:#101c2a;--line:#25384b;--mint:#62f4bf;--text:#ecf6f8;--muted:#98aebd}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -10%,#124b4c 0,transparent 40%),radial-gradient(ellipse at 0 100%,#12283c 0,transparent 45%),var(--bg);color:var(--text);font:15px 'DM Sans',sans-serif;min-height:100vh}button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}.app{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:100vh}.side{border-right:1px solid var(--line);padding:28px 22px;background:#09131fd9;display:flex;flex-direction:column;gap:26px}.logo{display:flex;gap:12px;align-items:center;font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700}.mark{width:41px;height:41px;border-radius:14px;display:grid;place-items:center;color:#05291e;background:linear-gradient(135deg,#8afbd1,#24bb9e);box-shadow:0 0 30px #36dca94a}.tag{font-size:10px;letter-spacing:2px;color:var(--mint);font-weight:700}.sub{font-size:12px;color:var(--muted);margin-top:3px}.panel{background:#13233380;border:1px solid var(--line);border-radius:19px;padding:17px}.section-title{font-size:11px;letter-spacing:1.6px;color:#90a9b8;text-transform:uppercase;font-weight:700;margin-bottom:12px}.upload{display:block;border:1.5px dashed #428a80;border-radius:14px;padding:24px 10px;text-align:center;background:#1e584323;transition:.2s}.upload:hover,.upload.drag{background:#246b4d5e;border-color:var(--mint);transform:translateY(-2px)}.upload strong{display:block;margin:8px 0 5px}.upload small{color:var(--muted);font-size:11px}.upload input{display:none}.doc{width:100%;background:transparent;border:1px solid transparent;border-radius:13px;padding:12px;color:var(--text);text-align:left;display:flex;gap:10px;align-items:center;margin:5px 0;transition:.2s}.doc:hover{background:#1b3040}.doc.active{background:#183d39;border-color:#3c9d83}.doc .info{flex:1;min-width:0}.doc .name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;font-weight:700}.doc .meta{font-size:11px;color:var(--muted);margin-top:4px}.del{border:0;background:transparent;color:#a5bac8;font-size:19px}.del:hover{color:#ff9b9b}.foot{margin-top:auto;color:var(--muted);font-size:11px;line-height:1.8}.status{display:flex;align-items:center;gap:7px}.dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint)}main{display:flex;flex-direction:column;min-width:0;height:100vh}.top{padding:22px 36px;border-bottom:1px solid #ffffff0d;display:flex;justify-content:space-between;align-items:center}.top h2{font-size:14px;margin:0;font-weight:600}.pill{border:1px solid #38665e;border-radius:30px;color:#8ce9c9;padding:8px 13px;font-size:11px;background:#12392f55}.workspace{max-width:1050px;width:100%;margin:auto;flex:1;display:flex;flex-direction:column;min-height:0;padding:30px 36px 20px}.hero{padding:40px 0 26px;animation:rise .6s both}.eyebrow{font-size:11px;letter-spacing:2.5px;color:var(--mint);font-weight:700}.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4vw,57px);letter-spacing:-2.5px;line-height:1.08;margin:15px 0}.hero h1 span{color:var(--mint)}.hero p{max-width:650px;color:var(--muted);line-height:1.7;margin:0}.steps{display:flex;gap:10px;margin-top:23px;flex-wrap:wrap}.step{padding:8px 12px;border-radius:9px;border:1px solid var(--line);color:#bad0d8;font-size:11px}.step b{color:var(--mint)}.conversation{flex:1;min-height:130px;overflow:auto;scrollbar-color:#335365 transparent;padding:15px 3px}.welcome{border:1px solid var(--line);background:linear-gradient(135deg,#132c31bb,#121c2b);border-radius:22px;padding:24px;max-width:620px;animation:rise .6s both}.welcome h3{font-family:'Space Grotesk';margin:0 0 8px}.welcome p{color:var(--muted);font-size:13px;line-height:1.7}.suggestions{display:flex;gap:8px;flex-wrap:wrap}.suggestions button{border:1px solid #315b5b;background:#12343a;color:#c9efe4;border-radius:30px;padding:9px 13px;font-size:12px}.suggestions button:hover{border-color:var(--mint)}.msg{margin:16px 0;animation:rise .3s both}.msg.user{display:flex;justify-content:flex-end}.bubble{max-width:85%;border:1px solid var(--line);border-radius:18px;padding:16px 19px;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere}.user .bubble{background:linear-gradient(135deg,#11684f,#0d594d);border-color:#198a70}.assistant .bubble{background:#132131}.speaker{font-size:10px;letter-spacing:1.5px;color:var(--mint);margin-bottom:7px;font-weight:700}.evidence{margin-top:12px;border-top:1px solid #3c4f60;padding-top:12px}.evidence summary{cursor:pointer;color:#91dec7;font-size:12px}.source{margin:10px 0;padding:11px;border-radius:10px;background:#091723;font-size:12px;color:#c3d5df}.source b{color:var(--mint)}.source p{margin:6px 0 0}.composer{border:1px solid #36655c;border-radius:19px;padding:9px;display:flex;gap:10px;align-items:center;background:#10232e;box-shadow:0 12px 60px #0005}.composer textarea{border:0;background:transparent;outline:0;resize:none;color:white;flex:1;min-height:42px;max-height:120px;padding:12px}.composer textarea::placeholder{color:#7c98a5}.send{border:0;background:linear-gradient(135deg,#76f6c3,#27c6a6);color:#073128;border-radius:12px;font-weight:700;padding:13px 19px;transition:.2s}.send:hover{transform:translateY(-2px);box-shadow:0 5px 20px #2de1ad4d}.hint{color:#718b9a;font-size:11px;text-align:center;margin:10px 0 0}.toast{position:fixed;right:25px;bottom:25px;background:#193b39;border:1px solid #428c7c;padding:14px 20px;border-radius:13px;z-index:10;box-shadow:0 10px 40px #0008;animation:rise .3s both}.hide{display:none!important}@keyframes rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}@media(max-width:800px){.app{grid-template-columns:1fr}.side{border-right:0;border-bottom:1px solid var(--line);padding:15px;gap:14px}.side .panel{padding:12px}.side .foot{display:none}.top{padding:14px 18px}.workspace{padding:14px 18px}.hero{padding:18px 0}.hero h1{letter-spacing:-1.5px}.conversation{min-height:230px}.bubble{max-width:97%}main{height:auto;min-height:70vh}.workspace{min-height:70vh}.doclist{max-height:140px;overflow:auto}}
-</style></head><body><div class="app"><aside class="side"><div class="logo"><div class="mark">✦</div><div>NutriFeast<div class="sub">DOCUMENT INTELLIGENCE</div></div></div><div class="panel"><div class="section-title">01 / Ingest knowledge</div><label class="upload" id="drop"><input type="file" id="file" accept=".pdf,.docx,.txt,.csv"><div style="font-size:30px">↥</div><strong>Drop a document here</strong><small>or click to browse · PDF, DOCX, TXT, CSV<br>Maximum 12 MB</small></label><div id="uploadStatus" class="sub" style="margin-top:10px"></div></div><div><div class="section-title">02 / Your documents <span id="count">0</span></div><div class="doclist" id="docs"><div class="sub">No documents yet.</div></div></div><div class="foot"><div class="status"><span class="dot"></span> <span id="server">Local document engine</span></div><div id="model">Checking generation mode...</div><div style="margin-top:9px">Your documents stay in this local project folder.</div></div></aside><main><header class="top"><h2>Workspace <span style="color:#627e8b">/</span> Ask your documents</h2><div class="pill" id="modePill">● Checking API</div></header><div class="workspace"><section class="hero"><div class="eyebrow">✦ EVIDENCE FIRST. ANSWERS SECOND.</div><h1>Turn documents into<br><span>clear intelligence.</span></h1><p>Upload your own files, ask questions in natural language, and trace every result back to the original source.</p><div class="steps"><div class="step"><b>01</b> Ingest</div><div class="step"><b>02</b> Retrieve</div><div class="step"><b>03</b> Generate</div><div class="step"><b>04</b> Cite</div></div></section><section class="conversation" id="conversation"><div class="welcome" id="welcome"><div class="eyebrow">YOUR KNOWLEDGE WORKSPACE</div><h3>Ask better questions. Get traceable evidence.</h3><p>Start by uploading a document on the left. Select it, then ask about its contents. Without a Gemini key, the app displays retrieved passages rather than an AI-generated answer.</p><div class="suggestions"><button onclick="suggest('Summarize the main points of this document')">Summarize the main points ↗</button><button onclick="suggest('What are the key findings?')">Find key findings ↗</button><button onclick="suggest('What does this document say about nutrition?')">Explore nutrition ↗</button></div></div></section><form class="composer" id="form"><textarea id="question" rows="1" placeholder="Ask a question about your selected document..."></textarea><button class="send" id="send" type="submit">Ask →</button></form><div class="hint">Answers are scoped to selected documents · Verify important information against cited passages</div></div></main></div><div class="toast hide" id="toast"></div><script>
-let docs=[],selected=new Set(),busy=false;
-const $=s=>document.querySelector(s);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-
-function notify(s){
-  $('#toast').textContent=s;
-  $('#toast').classList.remove('hide');
-  setTimeout(()=>$('#toast').classList.add('hide'),3500);
-}
-
-async function api(url,options){
-  const r=await fetch(url,options);
-  const body=await r.text();
-  let j={};
-  try{
-    j=body?JSON.parse(body):{};
-  }catch{
-    const clean=body.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
-    j={detail:clean&&clean.length<200?clean:`Server error (${r.status} ${r.statusText})`};
-  }
-  if(!r.ok){
-    let msg=j.detail||j.message||j.error;
-    if(!msg){
-      if(r.status===413) msg='File exceeds the 12 MB upload limit.';
-      else if(r.status===502||r.status===504) msg='Server is starting up or temporarily busy. Please try again.';
-      else msg=`Request failed with status ${r.status} (${r.statusText||'Error'})`;
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>NutriFeast Insight — Document Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070d16;
+      --card: #101c2a;
+      --card-alt: #132333;
+      --line: #25384b;
+      --line-subtle: rgba(255, 255, 255, 0.08);
+      --mint: #62f4bf;
+      --mint-glow: rgba(98, 244, 191, 0.25);
+      --text: #ecf6f8;
+      --muted: #98aebd;
+      --font-main: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Space Grotesk', sans-serif;
     }
-    if(Array.isArray(msg)){
-      msg=msg.map(m=>(typeof m==='object'&&m?(m.msg||JSON.stringify(m)):String(m))).join('; ');
-    }else if(typeof msg==='object'&&msg!==null){
-      msg=msg.msg||JSON.stringify(msg);
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    throw Error(msg);
-  }
-  return j;
-}
 
-async function refresh(){
-  try{
-    docs=await api('/api/documents');
-    $('#count').textContent=docs.length;
-    $('#docs').innerHTML=docs.length?docs.map(d=>`<div class="doc ${selected.has(d.id)?'active':''}" data-id="${esc(d.id)}"><span style="font-size:23px">▤</span><div class="info"><div class="name" title="${esc(d.name)}">${esc(d.name)}</div><div class="meta">${d.chunks_count} passages · ${Math.ceil(d.size/1024)} KB</div></div><button class="del" data-delete="${esc(d.id)}" title="Delete document">×</button></div>`).join(''):'<div class="sub">No documents yet.</div>';
-    
-    document.querySelectorAll('.doc').forEach(e=>e.addEventListener('click',()=>{
-      const id=e.dataset.id;
-      if(selected.has(id)) selected.delete(id);
-      else selected.add(id);
-      refresh();
-    }));
-    
-    document.querySelectorAll('[data-delete]').forEach(e=>e.addEventListener('click',async ev=>{
-      ev.stopPropagation();
-      if(!confirm('Delete this document?')) return;
-      await api('/api/documents/'+e.dataset.delete,{method:'DELETE'});
-      selected.delete(e.dataset.delete);
-      refresh();
-    }));
-  }catch(e){
-    notify(e.message);
-  }
-}
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 75% -15%, #124b4c 0%, transparent 45%),
+                  radial-gradient(ellipse at 0% 100%, #12283c 0%, transparent 50%),
+                  var(--bg);
+      color: var(--text);
+      font: 15px/1.6 var(--font-main);
+      -webkit-font-smoothing: antialiased;
+    }
 
-async function upload(file){
-  if(!file) return;
-  if(file.size>12*1024*1024){
-    const error='File "'+file.name+'" exceeds the 12 MB upload limit. Please upload a smaller file.';
-    $('#uploadStatus').style.color='#ff6b6b';
-    $('#uploadStatus').textContent=error;
-    return notify(error);
-  }
-  $('#uploadStatus').style.color='#ecf6f8';
-  $('#uploadStatus').textContent='⏳ Processing '+file.name+'...';
-  const data=new FormData();
-  data.append('file',file);
-  try{
-    const r=await api('/api/upload',{method:'POST',body:data});
-    selected.add(r.id);
-    await refresh();
-    notify('Indexed '+r.chunks_count+' passages');
-    $('#uploadStatus').style.color='#62f4bf';
-    $('#uploadStatus').textContent='✓ '+r.name+' indexed ('+r.chunks_count+' passages)';
-  }catch(e){
-    const error=e.message||'Upload failed';
-    notify(error);
-    $('#uploadStatus').style.color='#ff6b6b';
-    $('#uploadStatus').textContent='Upload failed: '+error;
-  }finally{
-    $('#file').value='';
-  }
-}
+    button, input, textarea {
+      font: inherit;
+    }
 
-$('#file').addEventListener('change',e=>{
-  if(e.target.files&&e.target.files[0]){
-    upload(e.target.files[0]);
-  }
-});
+    button {
+      cursor: pointer;
+      border: 0;
+      background: transparent;
+    }
 
-const drop=$('#drop');
-['dragenter','dragover'].forEach(name=>{
-  drop.addEventListener(name,e=>{
-    e.preventDefault();
-    e.stopPropagation();
-    drop.classList.add('drag');
-  });
-});
-['dragleave','dragend'].forEach(name=>{
-  drop.addEventListener(name,e=>{
-    e.preventDefault();
-    e.stopPropagation();
-    drop.classList.remove('drag');
-  });
-});
-drop.addEventListener('drop',e=>{
-  e.preventDefault();
-  e.stopPropagation();
-  drop.classList.remove('drag');
-  const files=e.dataTransfer.files;
-  if(files&&files.length>0){
-    upload(files[0]);
-  }
-});
+    button:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
 
-// Prevent accidental browser navigation on dropped files elsewhere
-window.addEventListener('dragover',e=>e.preventDefault());
-window.addEventListener('drop',e=>e.preventDefault());
+    /* Outer Shell Layout */
+    .app {
+      display: grid;
+      grid-template-columns: 320px minmax(0, 1fr);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
 
-function suggest(q){
-  $('#question').value=q;
-  $('#question').focus();
-}
+    /* Sidebar Navigation & Document Management */
+    .side {
+      background: rgba(9, 19, 31, 0.95);
+      border-right: 1px solid var(--line);
+      height: 100vh;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      padding: 26px 20px;
+      scrollbar-width: thin;
+      scrollbar-color: #233e50 transparent;
+      z-index: 20;
+    }
 
-function message(role,text,citations,mode){
-  $('#welcome')?.remove();
-  const wrap=document.createElement('div');
-  wrap.className='msg '+role;
-  let sources=citations?.length?`<details class="evidence"><summary>↗ View ${citations.length} retrieved source passages</summary>${citations.map((c,i)=>`<div class="source"><b>Source ${i+1}: ${esc(c.document)}${c.page?' · page '+c.page:''}</b><p>${esc(c.snippet)}</p></div>`).join('')}</details>`:'';
-  wrap.innerHTML=`<div class="bubble"><div class="speaker">${role==='user'?'YOU':'NUTRIFEAST · '+esc((mode||'').toUpperCase())}</div>${esc(text)}${sources}</div>`;
-  $('#conversation').append(wrap);
-  $('#conversation').scrollTop=$('#conversation').scrollHeight;
-  return wrap;
-}
+    .logo {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
 
-$('#form').addEventListener('submit',async e=>{
-  e.preventDefault();
-  if(busy) return;
-  const question=$('#question').value.trim();
-  if(!question) return;
-  if(!selected.size) return notify('Upload and select at least one document');
-  $('#question').value='';
-  message('user',question);
-  busy=true;
-  $('#send').disabled=true;
-  const loading=message('assistant','Searching your document…');
-  try{
-    const r=await api('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,document_ids:[...selected]})});
-    loading.remove();
-    message('assistant',r.answer,r.citations,r.mode);
-  }catch(err){
-    loading.remove();
-    message('assistant','Error: '+err.message);
-  }finally{
-    busy=false;
-    $('#send').disabled=false;
-  }
-});
+    .mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: #05291e;
+      font-size: 20px;
+      background: linear-gradient(135deg, #8afbd1, #24bb9e);
+      box-shadow: 0 0 24px var(--mint-glow);
+      flex-shrink: 0;
+    }
 
-$('#question').addEventListener('keydown',e=>{
-  if(e.key==='Enter'&&!e.shiftKey){
-    e.preventDefault();
-    $('#form').requestSubmit();
-  }
-});
+    .sub {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 1.2px;
+      font-weight: 500;
+    }
 
-api('/api/health').then(h=>{
-  $('#modePill').textContent=h.gemini_configured?'● Gemini connected':'● Evidence-only mode';
-  $('#model').textContent=h.gemini_configured?'Gemini answer generation enabled':'Add Gemini key for AI answers';
-}).catch(()=>{
-  $('#modePill').textContent='● Server unavailable';
-});
+    .panel {
+      background: rgba(19, 35, 51, 0.6);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+    }
 
-refresh();
-</script></body></html>
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 1.4px;
+      color: #90a9b8;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .upload {
+      display: block;
+      border: 1.5px dashed #3a756b;
+      border-radius: 14px;
+      padding: 20px 10px;
+      text-align: center;
+      background: rgba(30, 88, 67, 0.15);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .upload:hover, .upload.drag {
+      background: rgba(36, 107, 77, 0.35);
+      border-color: var(--mint);
+      transform: translateY(-1px);
+    }
+
+    .upload strong {
+      display: block;
+      font-size: 13px;
+      margin: 6px 0 4px;
+      color: #f1fcf8;
+    }
+
+    .upload small {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.4;
+      display: block;
+    }
+
+    .upload input {
+      display: none;
+    }
+
+    #uploadStatus {
+      font-size: 12px;
+      margin-top: 10px;
+      line-height: 1.4;
+      word-break: break-word;
+      transition: color 0.2s;
+    }
+
+    .doclist {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: 280px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #233e50 transparent;
+      padding-right: 4px;
+    }
+
+    .doc {
+      width: 100%;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      padding: 10px 12px;
+      color: var(--text);
+      text-align: left;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .doc:hover {
+      background: #162a39;
+    }
+
+    .doc.active {
+      background: #183e39;
+      border-color: #3b9b81;
+    }
+
+    .doc .info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .doc .name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .doc .meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .del {
+      border: 0;
+      background: transparent;
+      color: #8da4b4;
+      font-size: 18px;
+      padding: 2px 6px;
+      border-radius: 6px;
+      line-height: 1;
+      transition: color 0.15s;
+    }
+
+    .del:hover {
+      color: #ff7b7b;
+      background: rgba(255, 100, 100, 0.1);
+    }
+
+    .foot {
+      margin-top: auto;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+      border-top: 1px solid var(--line-subtle);
+      padding-top: 16px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: 0 0 10px var(--mint);
+    }
+
+    /* Main Area: Column Flex for Perfect Height & Single Scroll */
+    main {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Fixed Header */
+    .top {
+      flex-shrink: 0;
+      padding: 16px 28px;
+      border-bottom: 1px solid var(--line-subtle);
+      background: rgba(7, 13, 22, 0.85);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .top h2 {
+      font-size: 14px;
+      margin: 0;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pill {
+      border: 1px solid #38665e;
+      border-radius: 30px;
+      color: #8ce9c9;
+      padding: 6px 12px;
+      font-size: 11px;
+      background: rgba(18, 57, 47, 0.4);
+      font-weight: 500;
+    }
+
+    /* Workspace takes all remaining space */
+    .workspace {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0; /* Critical for child flex scroll */
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* SINGLE VERTICAL SCROLL AREA */
+    .conversation {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 24px 28px 100px; /* 100px bottom padding guarantees last line & citation never covered */
+      scrollbar-width: thin;
+      scrollbar-color: #2b495c transparent;
+      scroll-behavior: smooth;
+    }
+
+    .conversation::-webkit-scrollbar {
+      width: 6px;
+    }
+    .conversation::-webkit-scrollbar-thumb {
+      background: #2b495c;
+      border-radius: 4px;
+    }
+
+    /* Hero section inside scroll area */
+    .hero {
+      padding: 18px 0 24px;
+      animation: rise 0.5s ease both;
+    }
+
+    .hero.hide {
+      display: none;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 2.2px;
+      color: var(--mint);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.6vw, 48px);
+      letter-spacing: -1.5px;
+      line-height: 1.12;
+      margin: 12px 0;
+      font-weight: 700;
+    }
+
+    .hero h1 span {
+      color: var(--mint);
+    }
+
+    .hero p {
+      max-width: 640px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .steps {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .step {
+      padding: 6px 11px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: rgba(16, 28, 42, 0.4);
+      color: #bad0d8;
+      font-size: 11px;
+    }
+
+    .step b {
+      color: var(--mint);
+    }
+
+    /* Welcome Card */
+    .welcome {
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(19, 44, 49, 0.7), rgba(18, 28, 43, 0.9));
+      border-radius: 20px;
+      padding: 22px;
+      max-width: 640px;
+      animation: rise 0.5s ease both;
+      margin-top: 8px;
+    }
+
+    .welcome h3 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      margin: 0 0 6px;
+    }
+
+    .welcome p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .suggestions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .suggestions button {
+      border: 1px solid #315b5b;
+      background: #12343a;
+      color: #c9efe4;
+      border-radius: 30px;
+      padding: 7px 12px;
+      font-size: 12px;
+      transition: all 0.15s;
+    }
+
+    .suggestions button:hover {
+      border-color: var(--mint);
+      background: #17454d;
+      transform: translateY(-1px);
+    }
+
+    /* Chat Messages */
+    .msg {
+      margin: 20px 0;
+      animation: rise 0.3s ease both;
+      width: 100%;
+    }
+
+    .msg.user {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .msg.assistant {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .bubble {
+      max-width: 88%;
+      width: fit-content;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px 20px;
+      line-height: 1.7;
+      word-break: break-word;
+      overflow-wrap: break-word;
+      font-size: 14.5px;
+    }
+
+    .user .bubble {
+      background: linear-gradient(135deg, #11684f, #0d594d);
+      border-color: #198a70;
+      color: #f7fffd;
+      border-bottom-right-radius: 4px;
+    }
+
+    .assistant .bubble {
+      background: #101c2a;
+      border-color: #22374b;
+      border-bottom-left-radius: 4px;
+      width: 100%;
+      max-width: 95%;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Bubble Header with Speaker and Copy Button */
+    .bubble-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .speaker {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--mint);
+      font-weight: 700;
+    }
+
+    .copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(30, 54, 70, 0.5);
+      border: 1px solid #2b495d;
+      color: #b7ccd8;
+      border-radius: 8px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+
+    .copy-btn:hover {
+      background: #1e4554;
+      border-color: var(--mint);
+      color: var(--mint);
+      transform: translateY(-1px);
+    }
+
+    .copy-btn.copied {
+      background: #14493e;
+      border-color: #38c59f;
+      color: #6ef5c7;
+    }
+
+    .answer-body {
+      white-space: pre-wrap;
+      color: var(--text);
+    }
+
+    /* Citations / Evidence Section */
+    .evidence {
+      margin-top: 16px;
+      border-top: 1px solid #243a4e;
+      padding-top: 12px;
+    }
+
+    .evidence summary {
+      cursor: pointer;
+      color: #92e0c9;
+      font-size: 12.5px;
+      font-weight: 600;
+      user-select: none;
+      padding: 4px 0;
+      transition: color 0.15s;
+    }
+
+    .evidence summary:hover {
+      color: var(--mint);
+    }
+
+    .source-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .source {
+      padding: 13px 15px;
+      border-radius: 12px;
+      background: #091724;
+      border: 1px solid #1c3246;
+      font-size: 12.5px;
+      color: #c5d7e2;
+      line-height: 1.6;
+    }
+
+    .source b {
+      color: var(--mint);
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
+
+    .source p {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #b5cad5;
+    }
+
+    /* Fixed Composer Bar at Bottom */
+    .composer-wrap {
+      flex-shrink: 0;
+      padding: 12px 28px 18px;
+      background: linear-gradient(180deg, rgba(7, 13, 22, 0) 0%, rgba(7, 13, 22, 0.95) 25%, rgba(7, 13, 22, 1) 100%);
+      z-index: 10;
+    }
+
+    .composer {
+      border: 1px solid #36655c;
+      border-radius: 18px;
+      padding: 8px 10px 8px 14px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: #10232e;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .composer:focus-within {
+      border-color: var(--mint);
+      box-shadow: 0 10px 40px rgba(98, 244, 191, 0.15);
+    }
+
+    .composer textarea {
+      border: 0;
+      background: transparent;
+      outline: 0;
+      resize: none;
+      color: white;
+      flex: 1;
+      min-height: 38px;
+      max-height: 120px;
+      padding: 8px 0;
+      font-size: 14.5px;
+      line-height: 1.5;
+    }
+
+    .composer textarea::placeholder {
+      color: #7b97a5;
+    }
+
+    .send {
+      border: 0;
+      background: linear-gradient(135deg, #76f6c3, #27c6a6);
+      color: #073128;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 11px 18px;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .send:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 18px rgba(45, 225, 173, 0.4);
+    }
+
+    .hint {
+      color: #708a98;
+      font-size: 11px;
+      text-align: center;
+      margin: 8px 0 0;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+      background: #143532;
+      border: 1px solid #3ca78f;
+      color: #d8fbf1;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 100;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      animation: rise 0.25s ease both;
+    }
+
+    .hide {
+      display: none !important;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Mobile & Tablet Responsiveness */
+    @media (max-width: 860px) {
+      .app {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .side {
+        height: auto;
+        max-height: 220px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 14px 16px;
+        gap: 12px;
+      }
+
+      .side .foot {
+        display: none;
+      }
+
+      .doclist {
+        max-height: 90px;
+      }
+
+      .top {
+        padding: 12px 18px;
+      }
+
+      .workspace {
+        padding: 0;
+      }
+
+      .conversation {
+        padding: 16px 16px 90px;
+      }
+
+      .composer-wrap {
+        padding: 10px 14px 14px;
+      }
+
+      .bubble {
+        max-width: 98%;
+        padding: 14px 16px;
+      }
+
+      .hero h1 {
+        font-size: 26px;
+        letter-spacing: -1px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="side">
+      <div class="logo">
+        <div class="mark">✦</div>
+        <div>
+          NutriFeast
+          <div class="sub">DOCUMENT INTELLIGENCE</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="section-title">01 / Ingest Knowledge</div>
+        <label class="upload" id="drop">
+          <input type="file" id="file" accept=".pdf,.docx,.txt,.csv">
+          <div style="font-size: 28px; line-height: 1;">↥</div>
+          <strong>Drop a document here</strong>
+          <small>or click to browse · PDF, DOCX, TXT, CSV<br>Maximum 12 MB</small>
+        </label>
+        <div id="uploadStatus"></div>
+      </div>
+
+      <div>
+        <div class="section-title">
+          <span>02 / Your Documents</span>
+          <span id="count" style="color: var(--mint);">0</span>
+        </div>
+        <div class="doclist" id="docs">
+          <div class="sub" style="padding: 6px 0;">No documents yet.</div>
+        </div>
+      </div>
+
+      <div class="foot">
+        <div class="status">
+          <span class="dot"></span>
+          <span id="server">Local document engine</span>
+        </div>
+        <div id="model">Checking generation mode...</div>
+        <div style="margin-top: 6px; font-size: 10.5px; opacity: 0.8;">Your documents stay in your isolated storage space.</div>
+      </div>
+    </aside>
+
+    <!-- Main Chat Workspace -->
+    <main>
+      <header class="top">
+        <h2>Workspace <span style="color: #627e8b;">/</span> Ask your documents</h2>
+        <div class="pill" id="modePill">● Checking API</div>
+      </header>
+
+      <div class="workspace">
+        <!-- Scrollable Conversation Area -->
+        <section class="conversation" id="conversation">
+          <div class="hero" id="hero">
+            <div class="eyebrow">✦ EVIDENCE FIRST. ANSWERS SECOND.</div>
+            <h1>Turn documents into<br><span>clear intelligence.</span></h1>
+            <p>Upload your own files, ask questions in natural language, and trace every result back to the original source.</p>
+            <div class="steps">
+              <div class="step"><b>01</b> Ingest</div>
+              <div class="step"><b>02</b> Retrieve</div>
+              <div class="step"><b>03</b> Generate</div>
+              <div class="step"><b>04</b> Cite</div>
+            </div>
+          </div>
+
+          <div class="welcome" id="welcome">
+            <div class="eyebrow">YOUR KNOWLEDGE WORKSPACE</div>
+            <h3>Ask better questions. Get traceable evidence.</h3>
+            <p>Start by uploading a document on the left. Select it, then ask about its contents. Without a Gemini key, the app displays retrieved passages rather than an AI-generated answer.</p>
+            <div class="suggestions">
+              <button onclick="suggest('Summarize the main points of this document')">Summarize the main points ↗</button>
+              <button onclick="suggest('What are the key findings?')">Find key findings ↗</button>
+              <button onclick="suggest('What does this document say about nutrition?')">Explore nutrition ↗</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Docked Bottom Composer -->
+        <div class="composer-wrap">
+          <form class="composer" id="form">
+            <textarea id="question" rows="1" placeholder="Ask a question about your selected document..."></textarea>
+            <button class="send" id="send" type="submit">Ask →</button>
+          </form>
+          <div class="hint">Answers are scoped to selected documents · Verify important information against cited passages</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast hide" id="toast"></div>
+
+  <script>
+    let docs = [], selected = new Set(), busy = false;
+    const $ = s => document.querySelector(s);
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function notify(s) {
+      const t = $('#toast');
+      t.textContent = s;
+      t.classList.remove('hide');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.add('hide'), 3500);
+    }
+
+    async function api(url, options) {
+      const r = await fetch(url, options);
+      const body = await r.text();
+      let j = {};
+      try {
+        j = body ? JSON.parse(body) : {};
+      } catch {
+        const clean = body.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+        j = { detail: clean && clean.length < 200 ? clean : `Server error (${r.status} ${r.statusText})` };
+      }
+      if (!r.ok) {
+        let msg = j.detail || j.message || j.error;
+        if (!msg) {
+          if (r.status === 413) msg = 'File exceeds the 12 MB upload limit.';
+          else if (r.status === 502 || r.status === 504) msg = 'Server is starting up or temporarily busy. Please try again.';
+          else msg = `Request failed with status ${r.status} (${r.statusText || 'Error'})`;
+        }
+        if (Array.isArray(msg)) {
+          msg = msg.map(m => (typeof m === 'object' && m ? (m.msg || JSON.stringify(m)) : String(m))).join('; ');
+        } else if (typeof msg === 'object' && msg !== null) {
+          msg = msg.msg || JSON.stringify(msg);
+        }
+        throw Error(msg);
+      }
+      return j;
+    }
+
+    async function refresh() {
+      try {
+        docs = await api('/api/documents');
+        $('#count').textContent = docs.length;
+        $('#docs').innerHTML = docs.length ? docs.map(d => `
+          <div class="doc ${selected.has(d.id) ? 'active' : ''}" data-id="${esc(d.id)}">
+            <span style="font-size: 20px; line-height: 1;">▤</span>
+            <div class="info">
+              <div class="name" title="${esc(d.name)}">${esc(d.name)}</div>
+              <div class="meta">${d.chunks_count} passages · ${Math.ceil(d.size / 1024)} KB</div>
+            </div>
+            <button class="del" data-delete="${esc(d.id)}" title="Delete document">×</button>
+          </div>
+        `).join('') : '<div class="sub" style="padding: 6px 0;">No documents yet.</div>';
+
+        document.querySelectorAll('.doc').forEach(e => e.addEventListener('click', () => {
+          const id = e.dataset.id;
+          if (selected.has(id)) selected.delete(id);
+          else selected.add(id);
+          refresh();
+        }));
+
+        document.querySelectorAll('[data-delete]').forEach(e => e.addEventListener('click', async ev => {
+          ev.stopPropagation();
+          if (!confirm('Delete this document?')) return;
+          await api('/api/documents/' + e.dataset.delete, { method: 'DELETE' });
+          selected.delete(e.dataset.delete);
+          refresh();
+        }));
+      } catch (e) {
+        notify(e.message);
+      }
+    }
+
+    async function upload(file) {
+      if (!file) return;
+      if (file.size > 12 * 1024 * 1024) {
+        const error = 'File "' + file.name + '" exceeds the 12 MB upload limit. Please upload a smaller file.';
+        $('#uploadStatus').style.color = '#ff6b6b';
+        $('#uploadStatus').textContent = error;
+        return notify(error);
+      }
+      $('#uploadStatus').style.color = '#ecf6f8';
+      $('#uploadStatus').textContent = '⏳ Processing ' + file.name + '...';
+      const data = new FormData();
+      data.append('file', file);
+      try {
+        const r = await api('/api/upload', { method: 'POST', body: data });
+        selected.add(r.id);
+        await refresh();
+        notify('Indexed ' + r.chunks_count + ' passages');
+        $('#uploadStatus').style.color = '#62f4bf';
+        $('#uploadStatus').textContent = '✓ ' + r.name + ' indexed (' + r.chunks_count + ' passages)';
+      } catch (e) {
+        const error = e.message || 'Upload failed';
+        notify(error);
+        $('#uploadStatus').style.color = '#ff6b6b';
+        $('#uploadStatus').textContent = 'Upload failed: ' + error;
+      } finally {
+        $('#file').value = '';
+      }
+    }
+
+    $('#file').addEventListener('change', e => {
+      if (e.target.files && e.target.files[0]) {
+        upload(e.target.files[0]);
+      }
+    });
+
+    const drop = $('#drop');
+    ['dragenter', 'dragover'].forEach(name => {
+      drop.addEventListener(name, e => {
+        e.preventDefault();
+        e.stopPropagation();
+        drop.classList.add('drag');
+      });
+    });
+    ['dragleave', 'dragend'].forEach(name => {
+      drop.addEventListener(name, e => {
+        e.preventDefault();
+        e.stopPropagation();
+        drop.classList.remove('drag');
+      });
+    });
+    drop.addEventListener('drop', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      drop.classList.remove('drag');
+      const files = e.dataTransfer.files;
+      if (files && files.length > 0) {
+        upload(files[0]);
+      }
+    });
+
+    window.addEventListener('dragover', e => e.preventDefault());
+    window.addEventListener('drop', e => e.preventDefault());
+
+    function suggest(q) {
+      $('#question').value = q;
+      $('#question').focus();
+    }
+
+    function scrollToLatest() {
+      const conv = $('#conversation');
+      if (conv) {
+        setTimeout(() => {
+          conv.scrollTo({ top: conv.scrollHeight, behavior: 'smooth' });
+        }, 50);
+      }
+    }
+
+    function copyToClipboard(btn, text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+          btn.classList.add('copied');
+          btn.innerHTML = `
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Copied!</span>
+          `;
+          notify('Answer copied to clipboard');
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.innerHTML = `
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy</span>
+            `;
+          }, 2000);
+        }).catch(() => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      notify('Answer copied to clipboard');
+    }
+
+    function message(role, text, citations, mode) {
+      // Hide hero and remove welcome once conversation begins for maximum screen space
+      $('#welcome')?.remove();
+      const hero = $('#hero');
+      if (hero) hero.classList.add('hide');
+
+      const wrap = document.createElement('div');
+      wrap.className = 'msg ' + role;
+
+      if (role === 'user') {
+        wrap.innerHTML = `
+          <div class="bubble">
+            <div class="speaker">YOU</div>
+            <div class="answer-body">${esc(text)}</div>
+          </div>
+        `;
+      } else {
+        let sourcesHtml = '';
+        if (citations && citations.length > 0) {
+          sourcesHtml = `
+            <details class="evidence">
+              <summary>↗ View ${citations.length} retrieved source passage${citations.length > 1 ? 's' : ''}</summary>
+              <div class="source-list">
+                ${citations.map((c, i) => `
+                  <div class="source">
+                    <b>Source ${i + 1}: ${esc(c.document)}${c.page ? ' · page ' + c.page : ''}</b>
+                    <p>${esc(c.snippet)}</p>
+                  </div>
+                `).join('')}
+              </div>
+            </details>
+          `;
+        }
+
+        const modeLabel = (mode || '').toUpperCase();
+        wrap.innerHTML = `
+          <div class="bubble">
+            <div class="bubble-header">
+              <div class="speaker">NUTRIFEAST ${modeLabel ? '· ' + esc(modeLabel) : ''}</div>
+              <button class="copy-btn" title="Copy full response to clipboard">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Copy</span>
+              </button>
+            </div>
+            <div class="answer-body">${esc(text)}</div>
+            ${sourcesHtml}
+          </div>
+        `;
+
+        // Wire up the copy button
+        const copyBtn = wrap.querySelector('.copy-btn');
+        if (copyBtn) {
+          copyBtn.addEventListener('click', () => copyToClipboard(copyBtn, text));
+        }
+
+        // When user toggles citations open, scroll smoothly so it is fully visible
+        const details = wrap.querySelector('details.evidence');
+        if (details) {
+          details.addEventListener('toggle', () => {
+            if (details.open) {
+              setTimeout(() => {
+                details.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }, 60);
+            }
+          });
+        }
+      }
+
+      $('#conversation').append(wrap);
+      scrollToLatest();
+      return wrap;
+    }
+
+    $('#form').addEventListener('submit', async e => {
+      e.preventDefault();
+      if (busy) return;
+      const question = $('#question').value.trim();
+      if (!question) return;
+      if (!selected.size) return notify('Upload and select at least one document in the sidebar');
+
+      $('#question').value = '';
+      message('user', question);
+      busy = true;
+      $('#send').disabled = true;
+      const loading = message('assistant', 'Searching your documents…');
+
+      try {
+        const r = await api('/api/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question, document_ids: [...selected] })
+        });
+        loading.remove();
+        message('assistant', r.answer, r.citations, r.mode);
+      } catch (err) {
+        loading.remove();
+        message('assistant', 'Error: ' + err.message);
+      } finally {
+        busy = false;
+        $('#send').disabled = false;
+      }
+    });
+
+    $('#question').addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        $('#form').requestSubmit();
+      }
+    });
+
+    api('/api/health').then(h => {
+      $('#modePill').textContent = h.gemini_configured ? '● Gemini connected' : '● Evidence-only mode';
+      $('#model').textContent = h.gemini_configured ? 'Gemini answer generation enabled' : 'Add Gemini key for AI answers';
+    }).catch(() => {
+      $('#modePill').textContent = '● Server unavailable';
+    });
+
+    refresh();
+  </script>
+</body>
+</html>
