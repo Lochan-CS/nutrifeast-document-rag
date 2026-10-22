@@ -1,5 +1,185 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NutriFeast | Document Intelligence</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
 :root{color-scheme:dark;--bg:#070d16;--card:#101c2a;--line:#25384b;--mint:#62f4bf;--text:#ecf6f8;--muted:#98aebd}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -10%,#124b4c 0,transparent 40%),radial-gradient(ellipse at 0 100%,#12283c 0,transparent 45%),var(--bg);color:var(--text);font:15px 'DM Sans',sans-serif;min-height:100vh}button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}.app{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:100vh}.side{border-right:1px solid var(--line);padding:28px 22px;background:#09131fd9;display:flex;flex-direction:column;gap:26px}.logo{display:flex;gap:12px;align-items:center;font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700}.mark{width:41px;height:41px;border-radius:14px;display:grid;place-items:center;color:#05291e;background:linear-gradient(135deg,#8afbd1,#24bb9e);box-shadow:0 0 30px #36dca94a}.tag{font-size:10px;letter-spacing:2px;color:var(--mint);font-weight:700}.sub{font-size:12px;color:var(--muted);margin-top:3px}.panel{background:#13233380;border:1px solid var(--line);border-radius:19px;padding:17px}.section-title{font-size:11px;letter-spacing:1.6px;color:#90a9b8;text-transform:uppercase;font-weight:700;margin-bottom:12px}.upload{display:block;border:1.5px dashed #428a80;border-radius:14px;padding:24px 10px;text-align:center;background:#1e584323;transition:.2s}.upload:hover,.upload.drag{background:#246b4d5e;border-color:var(--mint);transform:translateY(-2px)}.upload strong{display:block;margin:8px 0 5px}.upload small{color:var(--muted);font-size:11px}.upload input{display:none}.doc{width:100%;background:transparent;border:1px solid transparent;border-radius:13px;padding:12px;color:var(--text);text-align:left;display:flex;gap:10px;align-items:center;margin:5px 0;transition:.2s}.doc:hover{background:#1b3040}.doc.active{background:#183d39;border-color:#3c9d83}.doc .info{flex:1;min-width:0}.doc .name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px;font-weight:700}.doc .meta{font-size:11px;color:var(--muted);margin-top:4px}.del{border:0;background:transparent;color:#a5bac8;font-size:19px}.del:hover{color:#ff9b9b}.foot{margin-top:auto;color:var(--muted);font-size:11px;line-height:1.8}.status{display:flex;align-items:center;gap:7px}.dot{width:7px;height:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 12px var(--mint)}main{display:flex;flex-direction:column;min-width:0;height:100vh}.top{padding:22px 36px;border-bottom:1px solid #ffffff0d;display:flex;justify-content:space-between;align-items:center}.top h2{font-size:14px;margin:0;font-weight:600}.pill{border:1px solid #38665e;border-radius:30px;color:#8ce9c9;padding:8px 13px;font-size:11px;background:#12392f55}.workspace{max-width:1050px;width:100%;margin:auto;flex:1;display:flex;flex-direction:column;min-height:0;padding:30px 36px 20px}.hero{padding:40px 0 26px;animation:rise .6s both}.eyebrow{font-size:11px;letter-spacing:2.5px;color:var(--mint);font-weight:700}.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(32px,4vw,57px);letter-spacing:-2.5px;line-height:1.08;margin:15px 0}.hero h1 span{color:var(--mint)}.hero p{max-width:650px;color:var(--muted);line-height:1.7;margin:0}.steps{display:flex;gap:10px;margin-top:23px;flex-wrap:wrap}.step{padding:8px 12px;border-radius:9px;border:1px solid var(--line);color:#bad0d8;font-size:11px}.step b{color:var(--mint)}.conversation{flex:1;min-height:130px;overflow:auto;scrollbar-color:#335365 transparent;padding:15px 3px}.welcome{border:1px solid var(--line);background:linear-gradient(135deg,#132c31bb,#121c2b);border-radius:22px;padding:24px;max-width:620px;animation:rise .6s both}.welcome h3{font-family:'Space Grotesk';margin:0 0 8px}.welcome p{color:var(--muted);font-size:13px;line-height:1.7}.suggestions{display:flex;gap:8px;flex-wrap:wrap}.suggestions button{border:1px solid #315b5b;background:#12343a;color:#c9efe4;border-radius:30px;padding:9px 13px;font-size:12px}.suggestions button:hover{border-color:var(--mint)}.msg{margin:16px 0;animation:rise .3s both}.msg.user{display:flex;justify-content:flex-end}.bubble{max-width:85%;border:1px solid var(--line);border-radius:18px;padding:16px 19px;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere}.user .bubble{background:linear-gradient(135deg,#11684f,#0d594d);border-color:#198a70}.assistant .bubble{background:#132131}.speaker{font-size:10px;letter-spacing:1.5px;color:var(--mint);margin-bottom:7px;font-weight:700}.evidence{margin-top:12px;border-top:1px solid #3c4f60;padding-top:12px}.evidence summary{cursor:pointer;color:#91dec7;font-size:12px}.source{margin:10px 0;padding:11px;border-radius:10px;background:#091723;font-size:12px;color:#c3d5df}.source b{color:var(--mint)}.source p{margin:6px 0 0}.composer{border:1px solid #36655c;border-radius:19px;padding:9px;display:flex;gap:10px;align-items:center;background:#10232e;box-shadow:0 12px 60px #0005}.composer textarea{border:0;background:transparent;outline:0;resize:none;color:white;flex:1;min-height:42px;max-height:120px;padding:12px}.composer textarea::placeholder{color:#7c98a5}.send{border:0;background:linear-gradient(135deg,#76f6c3,#27c6a6);color:#073128;border-radius:12px;font-weight:700;padding:13px 19px;transition:.2s}.send:hover{transform:translateY(-2px);box-shadow:0 5px 20px #2de1ad4d}.hint{color:#718b9a;font-size:11px;text-align:center;margin:10px 0 0}.toast{position:fixed;right:25px;bottom:25px;background:#193b39;border:1px solid #428c7c;padding:14px 20px;border-radius:13px;z-index:10;box-shadow:0 10px 40px #0008;animation:rise .3s both}.hide{display:none!important}@keyframes rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}@media(max-width:800px){.app{grid-template-columns:1fr}.side{border-right:0;border-bottom:1px solid var(--line);padding:15px;gap:14px}.side .panel{padding:12px}.side .foot{display:none}.top{padding:14px 18px}.workspace{padding:14px 18px}.hero{padding:18px 0}.hero h1{letter-spacing:-1.5px}.conversation{min-height:230px}.bubble{max-width:97%}main{height:auto;min-height:70vh}.workspace{min-height:70vh}.doclist{max-height:140px;overflow:auto}}
 </style></head><body><div class="app"><aside class="side"><div class="logo"><div class="mark">✦</div><div>NutriFeast<div class="sub">DOCUMENT INTELLIGENCE</div></div></div><div class="panel"><div class="section-title">01 / Ingest knowledge</div><label class="upload" id="drop"><input type="file" id="file" accept=".pdf,.docx,.txt,.csv"><div style="font-size:30px">↥</div><strong>Drop a document here</strong><small>or click to browse · PDF, DOCX, TXT, CSV<br>Maximum 12 MB</small></label><div id="uploadStatus" class="sub" style="margin-top:10px"></div></div><div><div class="section-title">02 / Your documents <span id="count">0</span></div><div class="doclist" id="docs"><div class="sub">No documents yet.</div></div></div><div class="foot"><div class="status"><span class="dot"></span> <span id="server">Local document engine</span></div><div id="model">Checking generation mode...</div><div style="margin-top:9px">Your documents stay in this local project folder.</div></div></aside><main><header class="top"><h2>Workspace <span style="color:#627e8b">/</span> Ask your documents</h2><div class="pill" id="modePill">● Checking API</div></header><div class="workspace"><section class="hero"><div class="eyebrow">✦ EVIDENCE FIRST. ANSWERS SECOND.</div><h1>Turn documents into<br><span>clear intelligence.</span></h1><p>Upload your own files, ask questions in natural language, and trace every result back to the original source.</p><div class="steps"><div class="step"><b>01</b> Ingest</div><div class="step"><b>02</b> Retrieve</div><div class="step"><b>03</b> Generate</div><div class="step"><b>04</b> Cite</div></div></section><section class="conversation" id="conversation"><div class="welcome" id="welcome"><div class="eyebrow">YOUR KNOWLEDGE WORKSPACE</div><h3>Ask better questions. Get traceable evidence.</h3><p>Start by uploading a document on the left. Select it, then ask about its contents. Without a Gemini key, the app displays retrieved passages rather than an AI-generated answer.</p><div class="suggestions"><button onclick="suggest('Summarize the main points of this document')">Summarize the main points ↗</button><button onclick="suggest('What are the key findings?')">Find key findings ↗</button><button onclick="suggest('What does this document say about nutrition?')">Explore nutrition ↗</button></div></div></section><form class="composer" id="form"><textarea id="question" rows="1" placeholder="Ask a question about your selected document..."></textarea><button class="send" id="send" type="submit">Ask →</button></form><div class="hint">Answers are scoped to selected documents · Verify important information against cited passages</div></div></main></div><div class="toast hide" id="toast"></div><script>
-let docs=[],selected=new Set(),busy=false;const $=s=>document.querySelector(s);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));function notify(s){$('#toast').textContent=s;$('#toast').classList.remove('hide');setTimeout(()=>$('#toast').classList.add('hide'),3500)}async function api(url,options){const r=await fetch(url,options);const body=await r.text();let j={};try{j=body?JSON.parse(body):{}}catch{j={detail:body||r.statusText}}if(!r.ok)throw Error(j.detail||`Request failed (${r.status})`);return j}async function refresh(){try{docs=await api('/api/documents');$('#count').textContent=docs.length;$('#docs').innerHTML=docs.length?docs.map(d=>`<div class="doc ${selected.has(d.id)?'active':''}" data-id="${esc(d.id)}"><span style="font-size:23px">▤</span><div class="info"><div class="name" title="${esc(d.name)}">${esc(d.name)}</div><div class="meta">${d.chunks_count} passages · ${Math.ceil(d.size/1024)} KB</div></div><button class="del" data-delete="${esc(d.id)}" title="Delete document">×</button></div>`).join(''):'<div class="sub">No documents yet.</div>';document.querySelectorAll('.doc').forEach(e=>e.addEventListener('click',()=>{const id=e.dataset.id;if(selected.has(id))selected.delete(id);else selected.add(id);refresh()}));document.querySelectorAll('[data-delete]').forEach(e=>e.addEventListener('click',async ev=>{ev.stopPropagation();if(!confirm('Delete this document?'))return;await api('/api/documents/'+e.dataset.delete,{method:'DELETE'});selected.delete(e.dataset.delete);refresh()}))}catch(e){notify(e.message)}}async function upload(file){if(!file)return;if(file.size>12*1024*1024){const error='File exceeds the 12 MB upload limit. Reduce the file size and try again.';$('#uploadStatus').textContent=error;return notify(error)}$('#uploadStatus').textContent='Processing '+file.name+'...';const data=new FormData();data.append('file',file);try{const r=await api('/api/upload',{method:'POST',body:data});selected.add(r.id);await refresh();notify('Indexed '+r.chunks_count+' passages');$('#uploadStatus').textContent='[OK] '+r.name+' indexed'}catch(e){const error=e.message||'Upload failed';notify(error);$('#uploadStatus').textContent='Upload failed: '+error}$('#file').value=''}$('#file').addEventListener('change',e=>upload(e.target.files[0]));const drop=$('#drop');drop.addEventListener('dragover',e=>{e.preventDefault();drop.classList.add('drag')});drop.addEventListener('dragleave',()=>drop.classList.remove('drag'));drop.addEventListener('drop',e=>{e.preventDefault();drop.classList.remove('drag');upload(e.dataTransfer.files[0])});function suggest(q){$('#question').value=q;$('#question').focus()}function message(role,text,citations,mode){$('#welcome')?.remove();const wrap=document.createElement('div');wrap.className='msg '+role;let sources=citations?.length?`<details class="evidence"><summary>↗ View ${citations.length} retrieved source passages</summary>${citations.map((c,i)=>`<div class="source"><b>Source ${i+1}: ${esc(c.document)}${c.page?' · page '+c.page:''}</b><p>${esc(c.snippet)}</p></div>`).join('')}</details>`:'';wrap.innerHTML=`<div class="bubble"><div class="speaker">${role==='user'?'YOU':'NUTRIFEAST · '+esc((mode||'').toUpperCase())}</div>${esc(text)}${sources}</div>`;$('#conversation').append(wrap);$('#conversation').scrollTop=$('#conversation').scrollHeight;return wrap}$('#form').addEventListener('submit',async e=>{e.preventDefault();if(busy)return;const question=$('#question').value.trim();if(!question)return;if(!selected.size)return notify('Upload and select at least one document');$('#question').value='';message('user',question);busy=true;$('#send').disabled=true;const loading=message('assistant','Searching your document…');try{const r=await api('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,document_ids:[...selected]})});loading.remove();message('assistant',r.answer,r.citations,r.mode)}catch(err){loading.remove();message('assistant','Error: '+err.message)}finally{busy=false;$('#send').disabled=false}});$('#question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();$('#form').requestSubmit()}});api('/api/health').then(h=>{$('#modePill').textContent=h.gemini_configured?'● Gemini connected':'● Evidence-only mode';$('#model').textContent=h.gemini_configured?'Gemini answer generation enabled':'Add Gemini key for AI answers'}).catch(()=>{$('#modePill').textContent='● Server unavailable'});refresh();
+let docs=[],selected=new Set(),busy=false;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function notify(s){
+  $('#toast').textContent=s;
+  $('#toast').classList.remove('hide');
+  setTimeout(()=>$('#toast').classList.add('hide'),3500);
+}
+
+async function api(url,options){
+  const r=await fetch(url,options);
+  const body=await r.text();
+  let j={};
+  try{
+    j=body?JSON.parse(body):{};
+  }catch{
+    const clean=body.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+    j={detail:clean&&clean.length<200?clean:`Server error (${r.status} ${r.statusText})`};
+  }
+  if(!r.ok){
+    let msg=j.detail||j.message||j.error;
+    if(!msg){
+      if(r.status===413) msg='File exceeds the 12 MB upload limit.';
+      else if(r.status===502||r.status===504) msg='Server is starting up or temporarily busy. Please try again.';
+      else msg=`Request failed with status ${r.status} (${r.statusText||'Error'})`;
+    }
+    if(Array.isArray(msg)){
+      msg=msg.map(m=>(typeof m==='object'&&m?(m.msg||JSON.stringify(m)):String(m))).join('; ');
+    }else if(typeof msg==='object'&&msg!==null){
+      msg=msg.msg||JSON.stringify(msg);
+    }
+    throw Error(msg);
+  }
+  return j;
+}
+
+async function refresh(){
+  try{
+    docs=await api('/api/documents');
+    $('#count').textContent=docs.length;
+    $('#docs').innerHTML=docs.length?docs.map(d=>`<div class="doc ${selected.has(d.id)?'active':''}" data-id="${esc(d.id)}"><span style="font-size:23px">▤</span><div class="info"><div class="name" title="${esc(d.name)}">${esc(d.name)}</div><div class="meta">${d.chunks_count} passages · ${Math.ceil(d.size/1024)} KB</div></div><button class="del" data-delete="${esc(d.id)}" title="Delete document">×</button></div>`).join(''):'<div class="sub">No documents yet.</div>';
+    
+    document.querySelectorAll('.doc').forEach(e=>e.addEventListener('click',()=>{
+      const id=e.dataset.id;
+      if(selected.has(id)) selected.delete(id);
+      else selected.add(id);
+      refresh();
+    }));
+    
+    document.querySelectorAll('[data-delete]').forEach(e=>e.addEventListener('click',async ev=>{
+      ev.stopPropagation();
+      if(!confirm('Delete this document?')) return;
+      await api('/api/documents/'+e.dataset.delete,{method:'DELETE'});
+      selected.delete(e.dataset.delete);
+      refresh();
+    }));
+  }catch(e){
+    notify(e.message);
+  }
+}
+
+async function upload(file){
+  if(!file) return;
+  if(file.size>12*1024*1024){
+    const error='File "'+file.name+'" exceeds the 12 MB upload limit. Please upload a smaller file.';
+    $('#uploadStatus').style.color='#ff6b6b';
+    $('#uploadStatus').textContent=error;
+    return notify(error);
+  }
+  $('#uploadStatus').style.color='#ecf6f8';
+  $('#uploadStatus').textContent='⏳ Processing '+file.name+'...';
+  const data=new FormData();
+  data.append('file',file);
+  try{
+    const r=await api('/api/upload',{method:'POST',body:data});
+    selected.add(r.id);
+    await refresh();
+    notify('Indexed '+r.chunks_count+' passages');
+    $('#uploadStatus').style.color='#62f4bf';
+    $('#uploadStatus').textContent='✓ '+r.name+' indexed ('+r.chunks_count+' passages)';
+  }catch(e){
+    const error=e.message||'Upload failed';
+    notify(error);
+    $('#uploadStatus').style.color='#ff6b6b';
+    $('#uploadStatus').textContent='Upload failed: '+error;
+  }finally{
+    $('#file').value='';
+  }
+}
+
+$('#file').addEventListener('change',e=>{
+  if(e.target.files&&e.target.files[0]){
+    upload(e.target.files[0]);
+  }
+});
+
+const drop=$('#drop');
+['dragenter','dragover'].forEach(name=>{
+  drop.addEventListener(name,e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    drop.classList.add('drag');
+  });
+});
+['dragleave','dragend'].forEach(name=>{
+  drop.addEventListener(name,e=>{
+    e.preventDefault();
+    e.stopPropagation();
+    drop.classList.remove('drag');
+  });
+});
+drop.addEventListener('drop',e=>{
+  e.preventDefault();
+  e.stopPropagation();
+  drop.classList.remove('drag');
+  const files=e.dataTransfer.files;
+  if(files&&files.length>0){
+    upload(files[0]);
+  }
+});
+
+// Prevent accidental browser navigation on dropped files elsewhere
+window.addEventListener('dragover',e=>e.preventDefault());
+window.addEventListener('drop',e=>e.preventDefault());
+
+function suggest(q){
+  $('#question').value=q;
+  $('#question').focus();
+}
+
+function message(role,text,citations,mode){
+  $('#welcome')?.remove();
+  const wrap=document.createElement('div');
+  wrap.className='msg '+role;
+  let sources=citations?.length?`<details class="evidence"><summary>↗ View ${citations.length} retrieved source passages</summary>${citations.map((c,i)=>`<div class="source"><b>Source ${i+1}: ${esc(c.document)}${c.page?' · page '+c.page:''}</b><p>${esc(c.snippet)}</p></div>`).join('')}</details>`:'';
+  wrap.innerHTML=`<div class="bubble"><div class="speaker">${role==='user'?'YOU':'NUTRIFEAST · '+esc((mode||'').toUpperCase())}</div>${esc(text)}${sources}</div>`;
+  $('#conversation').append(wrap);
+  $('#conversation').scrollTop=$('#conversation').scrollHeight;
+  return wrap;
+}
+
+$('#form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(busy) return;
+  const question=$('#question').value.trim();
+  if(!question) return;
+  if(!selected.size) return notify('Upload and select at least one document');
+  $('#question').value='';
+  message('user',question);
+  busy=true;
+  $('#send').disabled=true;
+  const loading=message('assistant','Searching your document…');
+  try{
+    const r=await api('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,document_ids:[...selected]})});
+    loading.remove();
+    message('assistant',r.answer,r.citations,r.mode);
+  }catch(err){
+    loading.remove();
+    message('assistant','Error: '+err.message);
+  }finally{
+    busy=false;
+    $('#send').disabled=false;
+  }
+});
+
+$('#question').addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&!e.shiftKey){
+    e.preventDefault();
+    $('#form').requestSubmit();
+  }
+});
+
+api('/api/health').then(h=>{
+  $('#modePill').textContent=h.gemini_configured?'● Gemini connected':'● Evidence-only mode';
+  $('#model').textContent=h.gemini_configured?'Gemini answer generation enabled':'Add Gemini key for AI answers';
+}).catch(()=>{
+  $('#modePill').textContent='● Server unavailable';
+});
+
+refresh();
 </script></body></html>
